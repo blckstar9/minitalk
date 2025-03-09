@@ -6,7 +6,7 @@
 /*   By: aybelaou <aybelaou@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:44:55 by aybelaou          #+#    #+#             */
-/*   Updated: 2025/03/06 18:13:10 by aybelaou         ###   ########.fr       */
+/*   Updated: 2025/03/09 17:55:41 by aybelaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,9 @@
 
 typedef struct s_state
 {
-	int				bit_count;
-	unsigned char	character;
+	volatile sig_atomic_t		bit_count;
+	volatile unsigned char		character;
 }	t_state;
+int	handle_failure(int *fails, char *message);
 
 #endif

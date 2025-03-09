@@ -6,7 +6,7 @@
 /*   By: aybelaou <aybelaou@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:57:32 by aybelaou          #+#    #+#             */
-/*   Updated: 2025/03/06 18:09:42 by aybelaou         ###   ########.fr       */
+/*   Updated: 2025/03/09 18:03:30 by aybelaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,27 +28,26 @@ void	handler(int sig)
 
 int	send_bit(int pid, int bit)
 {
-	int	timeout_count;
+	int			timeout_count;
+	static int	fails = 0;
+	int			sig;
 
 	timeout_count = 0;
 	g_sig_received = 0;
 	if (bit)
-	{
-		if (kill(pid, SIGUSR1) == -1)
-			return (ft_putstr_fd(RED"Error: Unable to send SIGUSR1\n"RS, 2), 0);
-	}
+		sig = SIGUSR1;
 	else
-	{
-		if (kill(pid, SIGUSR2) == -1)
-			return (ft_putstr_fd(RED"Error: Unable to send SIGUSR2\n"RS, 2), 0);
-	}
+		sig = SIGUSR2;
+	if (kill(pid, sig) == -1)
+		return (handle_failure(&fails, "Process not responding"));
 	while (!g_sig_received && timeout_count < 1000)
 	{
 		usleep(100);
 		timeout_count++;
 	}
 	if (timeout_count >= 1000)
-		return (ft_putstr_fd(RED"Error: Server timeout - retrying\n"RS, 2), 0);
+		return (handle_failure(&fails, "Server not responding"));
+	fails = 0;
 	return (1);
 }
 

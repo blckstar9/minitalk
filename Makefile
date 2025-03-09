@@ -6,7 +6,7 @@
 #    By: aybelaou <aybelaou@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/30 16:59:31 by aybelaou          #+#    #+#              #
-#    Updated: 2025/02/12 19:43:53 by aybelaou         ###   ########.fr        #
+#    Updated: 2025/03/09 17:58:14 by aybelaou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,9 +29,8 @@ RM				= rm -rf
 
 OBJS_DIR		= objs
 SRCS_DIR		= srcs
-SRCS_CLIENT		= $(wildcard $(SRCS_DIR)/client.c)
+SRCS_CLIENT		= $(wildcard $(SRCS_DIR)/client.c) $(wildcard $(SRCS_DIR)/client_utils.c)
 SRCS_SERVER		= $(wildcard $(SRCS_DIR)/server.c)
-#OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))
 OBJS_SERVER		= $(addprefix $(OBJS_DIR)/, $(SRCS_SERVER:.c=.o))
 OBJS_CLIENT		= $(addprefix $(OBJS_DIR)/, $(SRCS_CLIENT:.c=.o))
 
